@@ -1,0 +1,55 @@
+{
+  "versao": "1.0.0",
+  "publicador": "Instituto Brasileiro de Geografia e Estatística (IBGE)",
+  "origem_aquisicao": "Coordenadora Codex (/root), complemento preparo-insumos.md de 16/11/2026",
+  "data_obtencao": "2026-11-16",
+  "metodo_obtencao": "HTTPS, ZIP original preservado em entradas/",
+  "fontes": [
+    {
+      "arquivo": "SC_Municipios_2024.zip",
+      "edicao": "Malha Municipal Digital 2024, Santa Catarina",
+      "download": "https://geoftp.ibge.gov.br/organizacao_do_territorio/malhas_territoriais/malhas_municipais/municipio_2024/UFs/SC/SC_Municipios_2024.zip",
+      "produto": "https://www.ibge.gov.br/geociencias/organizacao-do-territorio/malhas-territoriais/15774-malhas.html",
+      "alteracao_listagem_reportada": "2025-04-29",
+      "bytes": 28564171,
+      "sha256": "199ca44280924bfd6d43e91a58bab6c9bf8e9b08a76afb70274057d51bb26047",
+      "base": "SC_Municipios_2024",
+      "codificacao": "cp1252",
+      "filtro": "CD_UF = 42"
+    },
+    {
+      "arquivo": "Localidades_UFs_shp.zip",
+      "edicao": "Localidades do Brasil, Censo Demográfico 2022",
+      "download": "https://geoftp.ibge.gov.br/organizacao_do_territorio/estrutura_territorial/localidades/Localidades_do_Brasil/2022/Localidades_UFs_shp.zip",
+      "produto": "https://www.ibge.gov.br/geociencias/organizacao-do-territorio/tipologias-do-territorio/27385-localidades.html",
+      "alteracao_listagem_reportada": "2025-11-19",
+      "bytes": 4538286,
+      "sha256": "f4af7774f1bf92636c8ff2bde61b515b8dd65b3d50eca66664f3ce77a0b7470c",
+      "base": "SC/SC_localidades_2022",
+      "codificacao": "utf-8",
+      "filtro": "Camada SC, CT_LOCALID = Cidade, SCT_LOCALI = Sede Municipal"
+    }
+  ],
+  "licenca": null,
+  "observacao_licenca": "Acesso público. Licenças específicas das duas edições não foram confirmadas; atribuição ao IBGE e uso local. A nota técnica da malha 2023 descreve condições apenas daquela edição.",
+  "crs_entrada": "EPSG:4674 (SIRGAS 2000)",
+  "crs_saida": "GeoJSON RFC 7946 WGS 84 longitude, latitude",
+  "transformacao": "SIRGAS 2000 to WGS 84 (1) (with axis order normalized for visualization)",
+  "arredondamento_decimais": 6,
+  "tolerancia_graus": 0.001,
+  "generalizacao": "Shapely coverage_simplify, fronteiras compartilhadas preservadas",
+  "cobertura_bruta_valida_geos": true,
+  "municipios_preservados_na_resolucao_original": [],
+  "maior_variacao_relativa_area_em_graus_quadrados": 0.0023413368657225217,
+  "municipios": 295,
+  "sedes_municipais_plotaveis": 295,
+  "pendencias": [],
+  "limite": "Sedes municipais são referências cartográficas do IBGE para agregados por município. A geometria generalizada é para visão estadual.",
+  "dependencias": {
+    "pyshp": "3.1.8",
+    "shapely": "2.2.0",
+    "pyproj": "3.8.0",
+    "PROJ": "9.8.1",
+    "GEOS": "3.14.1"
+  }
+}

@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#0d1930">
+    <title>Atlas de Formação Acadêmica · OESC</title>
+    <link rel="stylesheet" href="atlas/atlas.css">
+    <script src="atlas/atlas.js" type="module"></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#conteudo">Ir para o conteúdo</a>
+    <header class="topbar">
+      <div class="topbar-inner">
+        <a href="./index.html#overview" class="back-link"><span aria-hidden="true">←</span> Painel OESC</a>
+        <a href="#fontes" id="source-link" hidden>Fontes e metodologia <span aria-hidden="true">↓</span></a>
+      </div>
+    </header>
+    <main id="conteudo" tabindex="-1">
+      <header class="intro">
+        <p class="eyebrow">Santa Catarina · Censo da Educação Superior 2024</p>
+        <h1>Atlas de Formação Acadêmica</h1>
+        <p>Explore as ofertas presenciais potencialmente relacionadas ao setor espacial.</p>
+      </header>
+      <p id="load-status" role="status">Carregando os dados do Atlas…</p>
+      <noscript><p>Ative o JavaScript para explorar o Atlas.</p></noscript>
+      <div id="atlas" hidden>
+        <section class="explore-controls" aria-label="Visão e filtros">
+          <form id="filters">
+            <div class="toolbar">
+              <div class="segmented" role="group" aria-label="Visão do Atlas">
+                <button type="button" data-view="cursos" aria-pressed="true">Cursos</button>
+                <button type="button" data-view="instituicoes" aria-pressed="false">Instituições</button>
+              </div>
+              <label class="toolbar-search">
+                <span class="visually-hidden">Buscar município, instituição ou curso</span>
+                <span class="search-mark" aria-hidden="true"></span>
+                <input type="search" name="busca" placeholder="Buscar município, instituição ou curso" autocomplete="off">
+              </label>
+              <button class="quiet-button filter-toggle" type="button" id="filter-toggle" aria-expanded="false" aria-controls="advanced-filters">
+                Filtros <span id="filter-count" hidden></span><span class="chevron" aria-hidden="true"></span>
+              </button>
+            </div>
+            <div id="active-filters" class="active-filters" hidden>
+              <ul id="filter-chips" aria-label="Filtros ativos"></ul>
+              <button type="reset" class="text-button" aria-label="Limpar busca e filtros">Limpar tudo</button>
+            </div>
+            <div id="advanced-filters" class="filters" hidden>
+              <label>Área CINE
+                <select name="area"><option value="">Todas as áreas</option></select>
+              </label>
+              <label>Pertinência
+                <select name="pertinencia">
+                  <option value="">Direta e habilitadora</option>
+                  <option value="direta">Direta</option>
+                  <option value="habilitadora">Habilitadora potencial</option>
+                </select>
+              </label>
+              <label>Instituição
+                <select name="ies"><option value="">Todas as IES</option></select>
+              </label>
+              <label>Categoria administrativa
+                <select name="categoria"><option value="">Todas</option></select>
+              </label>
+              <label>Organização acadêmica
+                <select name="organizacao"><option value="">Todas</option></select>
+              </label>
+            </div>
+            <div id="place-matches" class="place-matches" hidden></div>
+          </form>
+        </section>
+
+        <section class="metrics" aria-label="Indicadores estaduais do recorte" id="state-metrics" aria-live="polite"></section>
+
+        <div class="workspace-grid">
+          <section id="mapa" class="panel map-panel" aria-labelledby="map-title" tabindex="-1">
+            <div class="panel-header map-header">
+              <div>
+                <h2 id="map-title">Santa Catarina</h2>
+                <p id="map-context"></p>
+              </div>
+              <label id="metric-control">Indicador no mapa
+                <select id="metric">
+                  <option value="ofertas">Ofertas pertinentes</option>
+                  <option value="proporcao">Proporção pertinente</option>
+                  <option value="matriculas">Matrículas pertinentes</option>
+                </select>
+              </label>
+            </div>
+            <nav class="map-actions" aria-label="Explorar o recorte">
+              <a href="#detalhe">Detalhes</a>
+              <a href="#comparar">Comparar <span id="map-compare-count" hidden></span></a>
+              <a href="#ranking-painel">Ranking</a>
+            </nav>
+            <div class="map-stage">
+              <div class="map-north" aria-hidden="true">N<span>↑</span></div>
+              <svg id="map" viewBox="0 0 900 640" role="group" aria-label="Municípios de Santa Catarina" aria-describedby="map-instructions">
+                <defs>
+                  <pattern id="unknown-pattern" patternUnits="userSpaceOnUse" width="7" height="7" patternTransform="rotate(45)">
+                    <rect width="7" height="7" fill="#e6edf5"></rect>
+                    <path d="M 0 0 V 7" stroke="#8193ac" stroke-width="2"></path>
+                  </pattern>
+                </defs>
+                <g id="map-paths"></g>
+                <path id="map-selection" aria-hidden="true"></path>
+              </svg>
+            </div>
+            <div id="map-legend" class="map-legend"></div>
+            <p id="map-instructions" class="map-footnote">Selecione no mapa ou pela lista. Com o teclado, use as setas e Enter.</p>
+          </section>
+
+          <aside id="detalhe" class="panel detail-panel" aria-labelledby="detail-title" tabindex="-1">
+            <div class="panel-header">
+              <p class="eyebrow">Detalhe territorial</p>
+              <h2 id="detail-title">Município</h2>
+            </div>
+            <div class="detail-body">
+              <label>Selecionar município
+                <select id="municipality"><option value="">Selecione um município</option></select>
+              </label>
+              <a href="#mapa" class="detail-back">Voltar ao mapa <span aria-hidden="true">↑</span></a>
+              <div id="municipality-detail"></div>
+              <div id="institution-detail" hidden></div>
+            </div>
+          </aside>
+        </div>
+
+        <section id="comparar" class="panel comparison-panel" aria-labelledby="compare-title" tabindex="-1">
+          <div class="panel-header compare-header">
+            <div>
+              <h2 id="compare-title">Comparar municípios</h2>
+              <p id="compare-progress" role="status">Nenhum município selecionado</p>
+            </div>
+            <label>Primeiro município
+              <select id="compare-first"><option value="">Selecione um município</option></select>
+            </label>
+            <label>Segundo município
+              <select id="compare-second"><option value="">Selecione um município</option></select>
+            </label>
+          </div>
+          <div id="comparison"></div>
+        </section>
+
+        <section id="ranking-painel" class="panel ranking-panel" aria-labelledby="ranking-title" tabindex="-1">
+          <div class="panel-header ranking-header">
+            <div>
+              <h2 id="ranking-title">Ranking do recorte</h2>
+              <p id="ranking-description"></p>
+            </div>
+            <div class="segmented" role="group" aria-label="Unidade do ranking">
+              <button type="button" data-ranking="municipios" aria-pressed="true">Municípios</button>
+              <button type="button" data-ranking="instituicoes" aria-pressed="false">Instituições</button>
+            </div>
+          </div>
+          <div id="ranking"></div>
+          <div id="ranking-pages" class="pagination" hidden>
+            <button id="previous" type="button" class="quiet-button">Anterior</button>
+            <span id="page-count" aria-live="polite"></span>
+            <button id="next" type="button" class="quiet-button">Próxima</button>
+          </div>
+        </section>
+
+        <details id="fontes" class="panel source-panel">
+          <summary>Fontes, cobertura e metodologia</summary>
+          <div class="source-body" id="source-body"></div>
+        </details>
+      </div>
+    </main>
+    <footer><div class="footer-inner"><span>OESC · Atlas de Formação Acadêmica</span><a href="./index.html#overview">Voltar ao painel OESC ↑</a></div></footer>
+  </body>
+</html>

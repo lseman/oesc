@@ -28,6 +28,8 @@ Navegação por hash, filtros de áreas, detalhes em diálogos, mapa e lista de 
 
 O estado de interface é mantido em memória, a seção é refletida na URL e os filtros são derivados das coleções locais. Eventos são registrados uma vez e a busca não envia dados a serviços externos. URLs temporárias de exportação são revogadas e diálogos de detalhes são removidos ao fechar.
 
+**Atlas de Formação**, no menu do painel, abre as visões Cursos e Instituições com dados presenciais do Censo da Educação Superior 2024 em Santa Catarina. A página usa somente arquivos locais e compartilha os filtros entre o mapa, a comparação e os rankings. As fontes, as regras de cálculo e as condições de uso dos derivados estão registradas em [atlas/dados.md](atlas/dados.md).
+
 ## Editar o conteúdo
 
 O aplicativo carrega os arquivos abaixo por `fetch`, em paralelo, antes de renderizar. Não há conteúdo de projeto duplicado em JavaScript e não é necessário executar um build. Edite o JSON, faça commit e push em `main`; o GitHub Pages publica os arquivos atualizados.

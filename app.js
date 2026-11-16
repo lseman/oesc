@@ -15,6 +15,7 @@ const paths = {
   layers:
     '<path d="m12 3 10 5-10 5L2 8Z"/><path d="m2 12 10 5 10-5M2 16l10 5 10-5"/>',
   map: '<path d="m3 6 6-3 6 3 6-3v15l-6 3-6-3-6 3Z"/><path d="M9 3v15M15 6v15"/>',
+  cap: '<path d="m2 9 10-5 10 5-10 5-10-5Z"/><path d="M6 11v5c3 3 9 3 12 0v-5M22 9v7"/>',
   box: '<path d="m12 3 9 5v9l-9 5-9-5V8Z"/><path d="m3 8 9 5 9-5M12 13v9M7.5 5.5l9 5"/>',
   route:
     '<circle cx="6" cy="5" r="3"/><circle cx="18" cy="19" r="3"/><path d="M6 8v7a4 4 0 0 0 4 4h5M18 16V9a4 4 0 0 0-4-4h-3"/>',
@@ -154,10 +155,11 @@ function render() {
   const current = sections.find((s) => s.id === state.section) || sections[0];
   document.title = `${current.name} · OESC`;
   document.querySelector("#breadcrumb-title").textContent = current.name;
+  const atlasLink = `<a href="./atlas.html" class="nav-item">${icon("cap")}<span>Atlas de Formação</span></a>`;
   document.querySelector("#navigation").innerHTML = sections
     .map(
-      (s, i) =>
-        `${s.id === "opportunities" ? '<p class="nav-label secondary-label">PARTICIPAR</p>' : ""}<a href="#${s.id}" class="nav-item ${s.id === current.id ? "active" : ""}" ${s.id === current.id ? 'aria-current="page"' : ""}>${icon(s.icon)}<span>${escapeHtml(s.name)}</span>${s.id === "opportunities" ? '<span class="nav-new"></span>' : ""}</a>`,
+      (s) =>
+        `${s.id === "opportunities" ? '<p class="nav-label secondary-label">PARTICIPAR</p>' : ""}<a href="#${s.id}" class="nav-item ${s.id === current.id ? "active" : ""}" ${s.id === current.id ? 'aria-current="page"' : ""}>${icon(s.icon)}<span>${escapeHtml(s.name)}</span>${s.id === "opportunities" ? '<span class="nav-new"></span>' : ""}</a>${s.id === "regions" ? atlasLink : ""}`,
     )
     .join("");
   main.innerHTML = `<div class="page-heading"><div><span class="eyebrow">${escapeHtml(current.eyebrow)}</span><h1>${escapeHtml(current.name)}<span class="heading-dot">.</span></h1><p>${escapeHtml(current.description)}</p></div><div class="page-actions"><span class="public-badge">${icon("globe")} Painel público</span><button class="button button-outline" id="export-button">${icon("download")} Exportar resumo</button></div></div>${{ overview, network, areas: areaPage, regions: () => `${mapPanel(true)}<div class="notice">${escapeHtml(copy.regionNotice)}</div>`, deliverables: deliveryPage, roadmap: () => roadmap(false), opportunities: () => opportunities(false) }[current.id]()}`;
